@@ -144,46 +144,59 @@ function showNextQuestion() {
     button.innerText = answer.text;
     button.addEventListener("click", () => checkAnswer(answer.correct));
     answerButtons.appendChild(button);
-  });
+    }
+  );
 }
 
 function checkAnswer(isCorrect) {
-    displayFeedback(isCorrect);
-    if (!isCorrect) {
-      timeLeft -= 10;
-    }
-    currentQuestionIndex++;
-    setTimeout(showNextQuestion, 1000);
+  displayFeedback(isCorrect);
+  if (!isCorrect) {
+    timeLeft -= 10;
   }
-
-function gameOverScreen() {
-    questionContainer.style.display = "none";
-    gameOver.style.display = "block";
-    finalScoreElement.textContent = timeLeft;
-  }
-  
-function saveHighScore(e) {
-    e.preventDefault();
-    const initials = document.getElementById("initials").value;
-    const score = timeLeft;
-  
-    // Retrieve high scores from localStorage, or initialize an empty string
-    const highScores = localStorage.getItem("highScores") || "";
-  
-    // Save the new score to localStorage
-    const newHighScores = highScores === "" ? `${initials},${score}` : `${highScores};${initials},${score}`;
-    localStorage.setItem("highScores", newHighScores);
-  
-    // Redirect to the high scores page
-    window.location.href = "highscores.html";
+  currentQuestionIndex++;
+  setTimeout(showNextQuestion, 1000);
 }
 
-function showInstructions() {
-    questionElement.textContent =
-      "Welcome to the quiz! You will be presented with 10 questions about JavaScript, CSS, and HTML. Answer as quickly as possible. For each incorrect answer, 10 seconds will be deducted from your time. Good luck!";
-    const startButton = document.createElement("button");
-    startButton.innerText = "Start";
-    startButton.addEventListener("click", startQuiz);
-    answerButtons.appendChild(startButton);
+function gameOverScreen() {
+  questionContainer.style.display = "none";
+  gameOver.style.display = "block";
+  finalScoreElement.textContent = timeLeft;
+}
+  
+function saveHighScore(e) {
+  e.preventDefault();
+  const initials = document.getElementById("initials").value;
+  const score = timeLeft;
+
+  // Retrieve high scores from localStorage, or initialize an empty string
+  const highScores = localStorage.getItem("highScores") || "";
+
+  // Save the new score to localStorage
+  const newHighScores = highScores === "" ? `${initials},${score}` : `${highScores};${initials},${score}`;
+  localStorage.setItem("highScores", newHighScores);
+
+  // Redirect to the high scores page
+  window.location.href = "highscores.html";
+}
+
+function countdown() {
+  if (timeLeft === 0) {
+    clearInterval(timer);
+    gameOverScreen();
+  } else {
+    timeLeft--;
+    timeLeftElement.textContent = timeLeft;
   }
+}
+
+
+
+function showInstructions() {
+  questionElement.textContent =
+    "Welcome to the quiz! You will be presented with 10 questions about JavaScript, CSS, and HTML. Answer as quickly as possible. For each incorrect answer, 10 seconds will be deducted from your time. Good luck!";
+  const startButton = document.createElement("button");
+  startButton.innerText = "Start";
+  startButton.addEventListener("click", startQuiz);
+  answerButtons.appendChild(startButton);
+}
 
