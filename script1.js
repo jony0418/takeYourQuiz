@@ -9,7 +9,6 @@ const timeLeftElement = document.getElementById("time-left");
 const feedbackElement = document.getElementById("feedback");
 
 
-
 const questions = [
   {
     question: "What does HTML stand for?",
@@ -111,14 +110,17 @@ startButton.addEventListener("click", startQuiz);
 initialsForm.addEventListener("submit", saveHighScore);
 
 function startQuiz() {
+  alert("Welcome to the quiz! You have 60 seconds to answer the questions. Good luck!");
   startButton.style.display = "none";
+  timerElement.style.display = "block";
   questionContainer.style.display = "block";
   timer = setInterval(countdown, 1000);
   showNextQuestion();
 }
 
 function countdown() {
-  if (timeLeft === 0) {
+  timeLeftElement.textContent = timeLeft;
+  if (timeLeft <= 0) {
     clearInterval(timer);
     gameOverScreen();
   } else {
@@ -151,7 +153,7 @@ function checkAnswer(isCorrect) {
       timeLeft -= 10;
     }
     currentQuestionIndex++;
-    showNextQuestion();
+    setTimeout(showNextQuestion, 1000);
   }
 
 function gameOverScreen() {
@@ -188,20 +190,12 @@ function countdown() {
 
 
 
-
-
-function displayFeedback(isCorrect) {
-  feedbackElement.style.display = "block";
-  if (isCorrect) {
-    feedbackElement.textContent = "Correct!";
-    feedbackElement.style.color = "green";
-  } else {
-    feedbackElement.textContent = "Wrong!";
-    feedbackElement.style.color = "red";
+function showInstructions() {
+    questionElement.textContent =
+      "Welcome to the quiz! You will be presented with 10 questions about JavaScript, CSS, and HTML. Answer as quickly as possible. For each incorrect answer, 10 seconds will be deducted from your time. Good luck!";
+    const startButton = document.createElement("button");
+    startButton.innerText = "Start";
+    startButton.addEventListener("click", startQuiz);
+    answerButtons.appendChild(startButton);
   }
-
-  setTimeout(() => {
-    feedbackElement.style.display = "none";
-  }, 1000);
-}
 
