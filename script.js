@@ -1,6 +1,4 @@
 const startButton = document.getElementById("start-quiz");
-
-
 const questionContainer = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
@@ -10,17 +8,8 @@ const initialsForm = document.getElementById("initials-form");
 const timeLeftElement = document.getElementById("time-left");
 const feedbackElement = document.getElementById("feedback");
 
-
+//Here is the array of questions and answers
 const questions = [
-  {
-    question: "What does HTML stand for?",
-    answers: [
-      { text: "Hyper Text Markup Language", correct: true },
-      { text: "Hyperlinks and Text Markup Language", correct: false },
-      { text: "Home Tool Markup Language", correct: false },
-      { text: "Hyperlinking Text Marking Language", correct: false },
-    ],
-  },
   {
     question: "What is the correct syntax for referring to an external script called 'script.js'?",
     answers: [
@@ -28,15 +17,6 @@ const questions = [
       { text: "<script href='script.js'>", correct: false },
       { text: "<script ref='script.js'>", correct: false },
       { text: "<script name='script.js'>", correct: false },
-    ],
-  },
-  {
-    question: "Which HTML attribute is used to define inline styles?",
-    answers: [
-      { text: "font", correct: false },
-      { text: "class", correct: false },
-      { text: "style", correct: true },
-      { text: "styles", correct: false },
     ],
   },
   {
@@ -58,30 +38,12 @@ const questions = [
     ],
   },
   {
-    question: "Which of the following is not a JavaScript data type?",
-    answers: [
-      { text: "Number", correct: false },
-      { text: "String", correct: false },
-      { text: "Image", correct: true },
-      { text: "Boolean", correct: false },
-    ],
-  },
-  {
     question: "How do you add a comment in a CSS file?",
     answers: [
       { text: "// this is a comment", correct: false },
       { text: "/* this is a comment */", correct: true },
       { text: "<!-- this is a comment -->", correct: false },
       { text: "' this is a comment", correct: false },
-    ],
-  },
-  {
-    question: "Which HTML tag is used to define an internal style sheet?",
-    answers: [
-      { text: "<style>", correct: true },
-      { text: "<css>", correct: false },
-      { text: "<script>", correct: false },
-      { text: "<styles>", correct: false },
     ],
   },
   {
@@ -93,36 +55,29 @@ const questions = [
       { text: "var colors = ['red', 'green', 'blue'];", correct: true },
     ],
   },
-  {
-    question: "How do you select an element with the id 'demo' in JavaScript?",
-    answers: [
-      { text: "document.getElementById('demo');", correct: true },
-      { text: "document.getElement('demo');", correct: false },
-      { text: "document.id('demo');", correct: false },
-      { text: "document.#('demo');", correct: false },
-    ],
-  },
 ];
 
 let currentQuestionIndex = 0;
 let timeLeft = 60;
 let timer;
 
+//This is the welcome message as an alert
+alert("Welcome to the quiz! You have 60 seconds to answer the questions, EACH WRONG ANSWER WILL TAKE 10 SECONS. Good luck!");
 startButton.addEventListener("click", startQuiz);
 initialsForm.addEventListener("submit", saveHighScore);
 
+//This is the function that will start the quiz
 function startQuiz() {
-
   startButton.style.display = "none";
-
   questionContainer.style.display = "block";
   timer = setInterval(countdown, 1000);
   showNextQuestion();
 }
 
+//This is the function wich does the countdown timer
 function countdown() {
-
-  if (timeLeft === 0) {
+  timeLeftElement.textContent = timeLeft;
+  if (timeLeft <= 0) {
     clearInterval(timer);
     gameOverScreen();
   } else {
@@ -130,6 +85,7 @@ function countdown() {
   }
 }
 
+//This funtion show the next question
 function showNextQuestion() {
   if (currentQuestionIndex === questions.length) {
     clearInterval(timer);
@@ -149,51 +105,41 @@ function showNextQuestion() {
   });
 }
 
+//This funtion does the scoring
 function checkAnswer(isCorrect) {
-    displayFeedback(isCorrect);
-    if (!isCorrect) {
-      timeLeft -= 10;
-    }
-    currentQuestionIndex++;
-    showNextQuestion();
+  displayFeedback(isCorrect);
+  if (!isCorrect) {
+    timeLeft -= 10;
   }
+  currentQuestionIndex++;
+  showNextQuestion();
+}
 
+//This function takes you to the game over screen
 function gameOverScreen() {
-    questionContainer.style.display = "none";
-    gameOver.style.display = "block";
-    finalScoreElement.textContent = timeLeft;
-  }
-  
+  questionContainer.style.display = "none";
+  gameOver.style.display = "block";
+  finalScoreElement.textContent = timeLeft;
+}
+
+//Here the function saves the high score
 function saveHighScore(e) {
-    e.preventDefault();
-    const initials = document.getElementById("initials").value;
-    const score = timeLeft;
-  
-    // Retrieve high scores from localStorage, or initialize an empty string
-    const highScores = localStorage.getItem("highScores") || "";
-  
-    // Save the new score to localStorage
-    const newHighScores = highScores === "" ? `${initials},${score}` : `${highScores};${initials},${score}`;
-    localStorage.setItem("highScores", newHighScores);
-  
-    // Redirect to the high scores page
-    window.location.href = "highscores.html";
+  e.preventDefault();
+  const initials = document.getElementById("initials").value;
+  const score = timeLeft;
+
+  // Retrieve high scores from localStorage, or initialize an empty string
+  const highScores = localStorage.getItem("highScores") || "";
+
+  // Save the new score to localStorage
+  const newHighScores = highScores === "" ? `${initials},${score}` : `${highScores};${initials},${score}`;
+  localStorage.setItem("highScores", newHighScores);
+
+  // Redirect to the high scores page
+  window.location.href = "highscores.html";
 }
 
-function countdown() {
-  if (timeLeft === 0) {
-    clearInterval(timer);
-    gameOverScreen();
-  } else {
-    timeLeft--;
-    timeLeftElement.textContent = timeLeft;
-  }
-}
-
-
-
-
-
+//This function displays the feedback
 function displayFeedback(isCorrect) {
   feedbackElement.style.display = "block";
   if (isCorrect) {
@@ -206,6 +152,6 @@ function displayFeedback(isCorrect) {
 
   setTimeout(() => {
     feedbackElement.style.display = "none";
-  }, 1000);
+  }, 500);
 }
 

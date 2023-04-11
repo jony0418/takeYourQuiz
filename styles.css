@@ -3,6 +3,7 @@ body {
     text-align: center;
   }
   
+  /* Here I give the property of display: flex to the container div. This will allow me to align the buttons in a row. */
   button {
     font-size: 1rem;
     padding: 8px 16px;
@@ -23,6 +24,7 @@ body {
     cursor: pointer;
   }
   
+  /* Here I use the nth-child selector to select the first button and change its background color to blue and text color to white. I do the same for the other buttons. */
   button:nth-child(1) {
     background-color: #3498db;
     color: #fff;
@@ -41,4 +43,10 @@ body {
   button:nth-child(4) {
     background-color: #e74c3c;
     color: #fff;
+  }
+
+  #feedback {
+    font-size: 1.5rem;
+    margin: 0;
+    padding: 0;
   }

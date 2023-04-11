@@ -178,18 +178,6 @@ function saveHighScore(e) {
     window.location.href = "highscores.html";
 }
 
-function countdown() {
-  if (timeLeft === 0) {
-    clearInterval(timer);
-    gameOverScreen();
-  } else {
-    timeLeft--;
-    timeLeftElement.textContent = timeLeft;
-  }
-}
-
-
-
 function showInstructions() {
     questionElement.textContent =
       "Welcome to the quiz! You will be presented with 10 questions about JavaScript, CSS, and HTML. Answer as quickly as possible. For each incorrect answer, 10 seconds will be deducted from your time. Good luck!";
