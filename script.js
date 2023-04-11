@@ -1,4 +1,6 @@
 const startButton = document.getElementById("start-quiz");
+
+
 const questionContainer = document.getElementById("question-container");
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
@@ -7,7 +9,6 @@ const finalScoreElement = document.getElementById("final-score");
 const initialsForm = document.getElementById("initials-form");
 const timeLeftElement = document.getElementById("time-left");
 const feedbackElement = document.getElementById("feedback");
-
 
 
 const questions = [
@@ -111,13 +112,16 @@ startButton.addEventListener("click", startQuiz);
 initialsForm.addEventListener("submit", saveHighScore);
 
 function startQuiz() {
+
   startButton.style.display = "none";
+
   questionContainer.style.display = "block";
   timer = setInterval(countdown, 1000);
   showNextQuestion();
 }
 
 function countdown() {
+
   if (timeLeft === 0) {
     clearInterval(timer);
     gameOverScreen();
