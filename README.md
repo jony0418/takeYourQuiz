@@ -22,5 +22,7 @@ When the quiz is over or the time runs out, you will be presented with a "Game O
 * JavaScript
 ## Example
 ![A user clicks through an interactive coding quiz, then enters initials to save the high score before resetting and starting over.](./Assets/captura.gif)
+I'm having lots of trouble to upload the screenshot, it is in the assets folder.
+
 ## License
 This project is released under the MIT License.
